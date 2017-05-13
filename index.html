@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>GURPS</title>
+  <link rel="shortcut icon" href="images/dice.png" />
+  <!-- Meta dados da pagina -->
+  <meta name="keywords" content="GURPS, RPG, planilha, sheet, gurps character sheet">
+  <meta name="author" content="Douglas Zaia Adam">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Links contendo os arquivos css    class="form-group row"-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <!-- Scripts contendo as funcoes para funcionamento da pagina -->
+  <script type="text/javascript" src="includes/procedures.js"></script>
+  <script type="text/javascript" src="includes/jquery-3.2.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- Barra de operacoes na parte superior da pagina -->
+  <header>
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <span class="navbar-brand"><img src="images/dice-2.png" width="30" /> AUTO GURPS <b style="color: gray">Alpha</b></span>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <!--<li class="nav-item active">
+            <a class="nav-link" href="#">Character Sheet</a>
+          </li>-->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              Language
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu bg-inverse">
+              <li><a href="index.html" class="nav-link">English</a></li>
+              <li><a href="index-portuguese.html" class="nav-link">Portuguese</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" data-target="#bugModal">Suggestions / Bug report</a>
+          </li>
+        </ul>
+        <label for="cost" class="col-form-label text-white">Cost:&nbsp;</label>
+        <input type="text" id="cost" style="background-color: transparent; border: 0px; color: #fff" disabled />
+      </div>
+    </nav>
+  </header>
+  <br /><br /><br /><br />
+
+  <div class="container">
+    <h2>Character Sheet</h2>
+  </div>
+  <br />
+
+  <!-- Sessao das informacoes -->
+  <div id="infoSection" class="container">
+    <div class="card">
+      <div class="card-header">
+        <h6 for="infoCard">Informations</h6>
+      </div>
+      <div class="card-block">
+        <div class="form-group">
+          <label for="name" class="col-form-label col-1">Name</label>
+          <input id="name" type="text" placeholder="Character Name" class="form-control col-12" />
+        </div>
+        <div class="form-group">
+          <label for="player" class="col-form-label col-1">Player</label>
+          <input type="text" id="player" placeholder="Player Name" class="form-control col-12" />
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <label for="sizeMod" class="col-form-label col-3">Mod</label>
+            <label for="height" class="col-form-label col-3">Ht</label>
+            <label for="width" class="col-form-label col-3">Wt</label>
+            <label for="age" class="col-form-label col-3">Age</label>
+          </div>
+          <div class="input-group">
+            <input type="number" id="sizeMod" class="form-control col-3" placeholder="Size" />
+            <input type="number" id="height" step="0.1" min="0" class="form-control col-3" placeholder="ft." />
+            <input type="number" id="width" step="1" min="40" class="form-control col-3" placeholder="lbs." />
+            <input type="number" id="age" min="0" class="form-control col-3" placeholder="Years" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="appearance" class="col-form-label col-1">Appearance</label>
+          <textarea id="appearance" class="form-control col-12" rows="3" placeholder="Character Appearance"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  <!-- Sessao dos atributos -->
+  <div id="attrSection" class="container">
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-header">
+          <h6>Attributes</h6>
+        </div>
+        <div class="card-block text-center">
+          <div class="row form-group">
+            <label for="st" class="col-form-label col-2">ST</label>
+            <input type="number" id="st" min="1" value="10" class="form-control col-2"
+                   onChange="setAttrCost('st'); calculateHp(); calculateBl(); calculateThrust(); calculateSwing(); calculateSpeed(); calculateMove(); calculateCost()" />
+            <label id="stCost" for="st" class="col-form-label col-2">[0]</label>
+            <label for="hp" class="col-form-label col-2">HP</label>
+            <input type="number" id="hp" class="form-control col-2" value="10" min="1" onChange="setAttrCost('hp'); calculateCost()" />
+            <label id="hpCost" for="hp" class="col-form-label col-2">[0]</label>
+          </div>
+          <div class="row form-group">
+            <label for="dx" class="col-form-label col-2">DX</label>
+            <input type="number" id="dx" min="1" value="10" onChange="setAttrCost('dx'); updateSkills('dx'); calculateCost()" class="form-control col-2" />
+            <label id="dxCost" for="dx" class="col-form-label col-2">[0]</label>
+            <label for="will" class="col-form-label col-2">Will</label>
+            <input type="number" id="will" min="1" max="20" class="form-control col-2" value="10" onchange="setAttrCost('will'); calculateCost()" />
+            <label id="willCost" for="will" class="col-form-label col-2">[0]</label>
+          </div>
+          <div class="row form-group">
+            <label for="iq" class="col-form-label col-2">IQ</label>
+            <input type="number" id="iq" min="1" value="10" class="form-control col-2"
+                   onChange="setAttrCost('iq'); calculateWill(); calculatePer(); updateSkills('iq'); calculateCost();" />
+            <label id="iqCost" for="iq" class="col-form-label col-2">[0]</label>
+            <label for="per" class="col-form-label col-2">Per</label>
+            <input type="number" id="per" min="1" max="20" class="form-control col-2" value="10" onchange="setAttrCost('per'); calculateCost()" />
+            <label id="perCost" for="per" class="col-form-label col-2">[0]</label>
+          </div>
+          <div class="row form-group">
+            <label for="ht" class="col-form-label col-2">HT</label>
+            <input type="number" id="ht" min="1" value="10" class="form-control col-2"
+                   onChange="setAttrCost('ht'); calculateFp(); calculateSpeed(); calculateMove(); updateSkills('ht'); calculateCost();" />
+            <label id="htCost" for="ht" class="col-form-label col-2">[0]</label>
+            <label for="fp" class="col-form-label col-2">FP</label>
+            <input type="number" id="fp" min="1" class="form-control col-2" value="10" onchange="setAttrCost('fp'); calculateCost()" />
+            <label id="fpCost" for="fp" class="col-form-label col-2">[0]</label>
+          </div>
+        </div>
+      </div>
+      <!-- Sessao dos status dos atributos -->
+      <div class="card">
+        <div class="card-header">
+          <h6>Attributes Status</h6>
+        </div>
+        <div class="card-block text-center">
+          <section class="card-text">
+            <div class="row form-group">
+              <p id="bl" class="col-form-label col-4">Basic lift: 20</p>
+              <p id="thr" class="col-form-label col-4">Thr: 1d -2</p>
+              <p id="sw" class="col-form-label col-4">Sw: 1d</p>
+            </div>
+            <div class="row form-group text-center">
+              <label for="move" class="col-form-label col-2">Move</label>
+              <input type="number" id="move" min="1" class="form-control col-2" value="5" onchange="setAttrCost('move'); calculateCost()" />
+              <label for="move" id="moveCost" class="col-form-label col-2">[0]</label>
+              <label for="speed" class="col-form-label col-2">Speed</label>
+              <input type="number" id="speed" min="1" step="0.25" class="form-control col-2" value="5" onchange="setAttrCost('speed'); calculateCost()" />
+              <label for="speed" id="speedCost" class="col-form-label col-2">[0]</label>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  <!--Sessao das vantagens -->
+  <div class="container">
+    <div id="advCard" class="card">
+      <div class="card-header">
+        <h6>Advantages & Perks</h6>
+      </div>
+      <div class="card-block text-center table-responsive ">
+        <table id="advTable" class="table table-sm table-striped">
+          <thead>
+            <tr>
+              <th style="width: 50%">Name</th>
+              <th class="text-center" style="width: 20%">Lvl/Qt</th>
+              <th class="text-center" style="width: 20%">Cost</th>
+              <th class="text-center" style="width: 10%">
+                <button type="button" class="btn btn-sm btn-success glyphicon glyphicon-plus" data-toggle="modal" data-target="#advModal">Add</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  <!-- Sessao das desvantagens-->
+  <div class="container">
+    <div id="disadvCard" class="card">
+      <div class="card-header">
+        <h6>Disadvantages & Quirks</h6>
+      </div>
+      <div class="card-block text-center table-responsive ">
+        <table id="disadvTable" class="table table-sm table-striped">
+          <thead>
+            <tr>
+              <th style="width: 50%">Name</th>
+              <th class="text-center" style="width: 20%">Lvl/Qt</th>
+              <th class="text-center" style="width: 20%">Cost</th>
+              <th class="text-center" style="width: 10%">
+                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#disadvModal">Add</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  <!-- Sessao das habilidades -->
+  <div class="container">
+    <div id="skillCard" class="card">
+      <div class="card-header">
+        <h6>Skills</h6>
+      </div>
+      <div class="card-block text-center table-sm table-responsive ">
+        <table id="skillTable" class="table table-striped">
+          <thead>
+            <tr>
+              <th style="width: 50%">Name</th>
+              <th class="text-center" style="width: 20%">Lvl</th>
+              <th class="text-center" style="width: 20%">Cost</th>
+              <th class="text-center" style="width: 10%">
+                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#skillModal">Add</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br />
+  <!-- Sessao de modais -->
+
+  <!-- Modal das vantagens -->
+  <div id="advModal" class="modal fade">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Advantages & Perks</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label for="advList" class="col-form-label">Advantages & Perks List</label>
+          <select id="advList" class="form-control col-12">
+            <option value=""></option>
+            <optgroup label="Custom">
+              <option value="Customized Advantage;0">Customized Advantage</option>
+              <option value="Customized Perk;6">Customized Perk</option>
+            </optgroup>
+            <optgroup label="Advantages">
+              <option value="360° Vision;1;25">360° Vision</option>
+              <option value="3D Spatial Sense;7;10;[Piloting]=1,[Acrobatics]=2,[Free Fall]=2,[Navigation]=2">3D Spatial Sense</option>
+              <option value="Absolute Direction;2;5-10">Absolute Direction</option>
+              <option value="Absolute Timing;2;3-5">Absolute Timing</option>
+              <option value="Acute Hearing;3;2;999">Acute Hearing</option>
+              <option value="Acute Taste and Smell;3;2;999">Acute Taste and Smell</option>
+              <option value="Acute Touch;3;2;999">Acute Touch</option>
+              <option value="Acute Vision;3;2;999">Acute Vision</option>
+              <option value="Administration Rank" disabled></option>
+              <option value="Affliction;3;10;999">Affliction</option>
+              <option value="Allies;4;0.5">Allies</option>
+              <option value="Altered Time Rate;3;100;999">Altered Time Rate</option>
+              <option value="Alternate Indentity(5 per identity);3;5;999">Alternate Indentity(5 per identity)</option>
+              <option value="Alternate Indentity(15 per identity);3;15;999">Alternate Indentity(15 per identity)</option>
+              <option value="Ambidexterity;1;5">Ambidexterity</option>
+              <option value="Amphibious;1;10">Amphibious</option>
+              <option value="Animal Empathy;1;5">Animal Empathy</option>
+              <option value="Arm DX(12 per +1 DX);3;12;999">Arm DX(12 per +1 DX)</option>
+              <option value="Arm DX(16 per +1 DX);3;16;999">Arm DX(16 per +1 DX)</option>
+              <option value="Arm ST(3 per +1 ST);3;3;999">Arm ST(3 per +1 ST)</option>
+              <option value="Arm ST(5 per +1 ST);3;5;999">Arm ST(5 per +1 ST)</option>
+              <option value="Arm ST(8 per +1 ST);3;8;999">Arm ST(8 per +1 ST)</option>
+              <option value="Biding;3;2;999">Biding</option>
+              <option value="Blessed;4;10">Blessed</option>
+              <option value="Brachiator;1;5">Brachiator</option>
+              <option value="Breath-Holding;3;2;999">Breath-Holding</option>
+              <option value="Catfall;1;10">Catfall</option>
+              <option value="Chamaleon;3;5;999">Chamaleon</option>
+              <option value="Channeling;1;10">Channeling</option>
+              <option value="Charisma;3;5;999">Charisma</option>
+              <option value="Claim to Hospitality;5;1;10">Claim to Hospitality</option>
+              <option value="Clairsentience;1;50">Clairsentience</option>
+              <option value="Claws;4;1">Claws(Revisar pois altera o dano)</option>
+              <option value="Clerical;1;5">Clerical</option>
+              <option value="Clinging;1;20">Clinging</option>
+              <option value="Combat Reflexes;1;15">Combat Refexes</option>
+              <option value="Common Sense;1;10">Common Sense</option>
+              <option value="Compartmentalized Mind;1;50">Compartmentalized Mind</option>
+              <option value="Constriction Attack;1;15">Constriction Attack</option>
+              <option value="Contact Group;4;0.5">Contact Group</option>
+              <option value="Contact;4;0.5">Contact</option>
+              <option value="Cultural Adaptability;2;10-20">Cultural Adaptability</option>
+              <option value="Cybernetics;4;0.5">Cybernetics</option>
+              <option value="Damage Resistence;3;5;999">Damage Resistence</option>
+              <option value="Danger Sense;1;15">Danger Sense</option>
+              <option value="Dark Vision;1;25">Dark Vision</option>
+              <option value="Destiny;4;0.5">Destiny</option>
+              <option value="Detect;4;0.5">Detect</option>
+              <option value="Digital Mind;1;5">Digital Mind</option>
+              <option value="Discriminatory Hearting;1;15">Discriminatory Hearting</option>
+              <option value="Discriminatory Smell;1;15">Discriminatory Smell</option>
+              <option value="Discriminatory Taste;1;10">Discriminatory Taste</option>
+              <option value="Doesn't Breathe;1;20">Doesn't Breathe</option>
+              <option value="Doesn't Eat or Drink;1;10">Doesn't Eat or Drink</option>
+              <option value="Doesn't Sleep;1;20">Don't Sleep</option>
+              <option value="Dominace;1;20">Dominance</option>
+              <option value="Duplication;3;35;999">Duplication</option>
+              <option value="Eidetic Memory;2;5-10">Eidetic Memory</option>
+              <option value="Elastic Skin;1;20">Elastic Skin</option>
+              <option value="Empathy;2;5-15">Empathy</option>
+              <option value="Enhanced Defenses;4;0.5">Enhanced Defenses(Modifica o dodge)</option>
+              <option value="Enhanced Move;3;20;999">Enhanced Move</option>
+              <option value="Enhanced Time Sense;1;45">Enhanced Time Sense</option>
+              <option value="Enhanced Tracking;3;5;999">Enhanced Tracking</option>
+              <option value="Extended Lifespan;3;2;999">Extended Lifespan</option>
+              <option value="Extra Arms;4;0.5">Extra Arms</option>
+              <option value="Extra Attack;3;25;999">Extra Attack</option>
+              <option value="Extra Head;3;15;999">Extra Head</option>
+              <option value="Extra Legs;4;0.5">Extra Legs</option>
+              <option value="Extra Life;3;25;999">Extra Life</option>
+              <option value="Extra Mounth;3;5;999">Extra Mounth</option>
+              <option value="Favor;4;0.5">Favor</option>
+              <option value="Fearlessness;3;2;999">Fearlessness</option>
+              <option value="Filter Lungs;1;5">Filter Lungs</option>
+              <option value="Fit;2;5-15">Fit</option>
+              <option value="Flexibility;2;5-15">Flexibility</option>
+              <option value="Flight;1;40">Flight</option>
+              <option value="Gadgeteer;2;25-50">Gadgeteer</option>
+              <option value="Gizmos;3;5;999">Gizmos</option>
+              <option value="G-Experience;5;1;10">G-Experience</option>
+              <option value="Gunslinger;1;25">Gunslinger</option>
+              <option value="Growth;3;10;999">Growth</option>
+              <option value="Hard to Subdue;3;2;999">Hard to Subdue</option>
+              <option value="Healing;1;30">Healing</option>
+              <option value="Hermaphromorph;1;5">Hermaphromorph</option>
+              <option value="High Manual Dexterity;3;5;999">High Manual Desterity</option>
+              <option value="High Pain Threshold;1;10">High Pain Thresold</option>
+              <option value="Higher Purpose;1;5">Higher Purpose</option>
+              <option value="Hyperspectral Vision;1;25">Hyperspectral Vision</option>
+              <option value="Illuminated;1;15">Illuminated</option>
+              <option value="Improved G-Tolerance;5;5;25">Improved G-Tolerance</option>
+              <option value="Indomitable;1;15">Indomitable</option>
+              <option value="Infravision;2;0-10">Infravision</option>
+              <option value="Injury Tolerance;4;0.5">Injury Tolerance</option>
+              <option value="Innate Attack;4;0.5">Innate Attack(Dar uma olhada)</option>
+              <option value="Insubstantialy;1;80">Insubstantialy</option>
+              <option value="Intuition;1;15">Intuition</option>
+              <option value="Invisibility;1;40">Invisibility</option>
+              <option value="jumper;1;100">Jumper</option>
+              <option value="Language Talent;1;10">Language Talent</option>
+              <option value="Legal Enforcement Powers;2;5-10-15">Legal Enforcement Powers</option>
+              <option value="Legal Immunity;2;5-20">Legal immunity</option>
+              <option value="Less Sleep;3;2;999">Less Sleep</option>
+              <option value="Lifting ST;3;3;999">Lifting ST</option>
+              <option value="Lightning Calculator;2;2-5">Lightning Calculator</option>
+              <option value="Longevity;1;2">Longevity</option>
+              <option value="Luck;4;0.5">Luck</option>
+              <option value="Magery;3;5;999">Magery(Olhar de novo)</option>
+              <option value="Mana Damper;3;10;999">Mana Dumper</option>
+              <option value="Magic Resistance;3;2;999">Magic Resistance</option>
+              <option value="Mana Enhancer;3;50;999">Mana Enhancer</option>
+              <option value="Medium;1;10">Medium</option>
+              <option value="Metabolism Control;3;5;999">Metabolism Control</option>
+              <option value="Microscopic Vision;3;5;999">Microscopic Vision</option>
+              <option value="Mimicry;1;10">Mimicry</option>
+              <option value="Mind Control;1;50">Mind Control</option>
+              <option value="Mind Reading;1;30">Mind Reading</option>
+              <option value="Mind Shield;3;4;999">Mind Shield</option>
+              <option value="Mindlink;4;0.5">Mindlink</option>
+              <option value="Modular Abilities;4;0.5">Modular Abilities</option>
+              <option value="Neutralize;1;50">Neutralize</option>
+              <option value="Nictitating Membrane;3;1;999">Nictitating Membrane</option>
+              <option value="Night Vision;3;1;999">Night Vision</option>
+              <option value="Obscure;3;2;999">Obscure</option>
+              <option value="Oracle;1;15">Oracle</option>
+              <option value="Parabolic Hearing;3;4;999">Parabolic Hearing</option>
+              <option value="Patrons;4;0.5">Patrons</option>
+              <option value="Payload;3;1;999">Payload</option>
+              <option value="Penetrating Vision;3;10;999">Penetrating Vision</option>
+              <option value="Perfect Balance;1;15">Perfect Balance</option>
+              <option value="Peripheral Vision;1;15">Peripheral Vision</option>
+              <option value="Permeation;4;0.5">Permeation</option>
+              <option value="Plant Emphaty;1;5">Plant Empathy</option>
+              <option value="Possession;1;100">Possession</option>
+              <option value="Power Investiture;3;10;999">Power Investiture</option>
+              <option value="Precognition;1;25">Precognition</option>
+              <option value="Pressure Support;5;5;15">Pressure Support</option>
+              <option value="Protected Sense;3;5;999">Protected Sense</option>
+              <option value="Psi Static;1;30">Psi Static</option>
+              <option value="Psychometry;1;20">Psychometry</option>
+              <option value="Puppet;2;5-10">Puppet</option>
+              <option value="TRcial Memory;2;15-40">Racil Memory</option>
+              <option value="Radiation Tolerance;4;1">Radiation Tolerance</option>
+              <option value="Rapid Healing;2;5-15">Rapid Healing</option>
+              <option value="Rapier Wit;1;5">Rapier Wit</option>
+              <option value="Reawakened;1;10">Reawakened</option>
+              <option value="Recovery;1;10">Recovery</option>
+              <option value="Reduced Consumption;3;2;999">Reduced Consumption</option>
+              <option value="Regeneration;4;1">Regeneration</option>
+              <option value="Regrowth;1;40">Regrowth</option>
+              <option value="Resistant;4;1">Resistant</option>
+              <option value="Scanning Sense;4;1">Scanning Sense</option>
+              <option value="Sealed;1;15">Sealed</option>
+              <option value="Security Clearance;4;1">Security Clearance</option>
+              <option value="See Invisible;1;15">See Invisible</option>
+              <option value="Sensitive Touch;1;10">Sensitive Touch</option>
+              <option value="Serendipity;3;15;999">Serendipity</option>
+              <option value="Shadow Form;1;50">Shadow Form</option>
+              <option value="Shapeshifting;4;1">Shapeshifting</option>
+              <option value="Shrinking;3;5;999">Shrinking</option>
+              <option value="Signature Gear;4;1">Signature</option>
+              <option value="Silence;3;5;999">Silence</option>
+              <option value="Single-Minded;1;5">Single-Minded</option>
+              <option value="Snatcher;1;80">Snatcher</option>
+              <option value="Social Chameleon;1;5">Social Chamaleon</option>
+              <option value="Social Regard;3;5;999">Social Regard</option>
+              <option value="Speak Underwater;1;5">Speak Underwater</option>
+              <option value="Speak With Animals;1;25">Speak With Animals</option>
+              <option value="Speak With Plants;1;15">Speak With Plants</option>
+              <option value="Special Rapport;1;5">Special Rapport</option>
+              <option value="Spines;2;1-3">Spines</option>
+              <option value="Spirit Empathy;1;10">Spirit Empathy</option>
+              <option value="Stretching;3;6;999">Stretching</option>
+              <option value="Striker;2;5-6-7-8">Striker</option>
+              <option value="Stricking ST;3;5;999">Stricking ST</option>
+              <option value="Subsonic Hearing;2;0-5">Subsonic Hearing</option>
+              <option value="Subsonic Speech;2;0-10">Subsonic Speech</option>
+              <option value="Super Climbing;3;3;999">Super Climbing</option>
+              <option value="Super Jump;3;10;999">Super Jump</option>
+              <option value="Super Luck;1;100">Super Luck</option>
+              <option value="Supernatural Durability;1;150">Supernatural Durability</option>
+              <option value="Talent;4;1">Talent</option>
+              <option value="Teeth;2;0-1-2">Teeth</option>
+              <option value="Telecommunication;4;1">Telecommunication</option>
+              <option value="Telekinesis;3;5;999">Telekinesis</option>
+              <option value="Telescopic Vision;3;5;999">Telescopic Visoin</option>
+              <option value="Temperature Control;3;5;999">Temperature Control</option>
+              <option value="Temperature Tolerance;3;1;999">Temperature Tolerance</option>
+              <option value="Temporal Inertia;1;15">Temporal Inertia</option>
+              <option value="Terrain Adaptation;2;0-5">Terrain Adaptation</option>
+              <option value="Terror">Terror(N�o est� feito)</option>
+              <option value="Trained By A Master;1;30">Trained By A MAster</option>
+              <option value="True Faith;1;15">True Faith</option>
+              <option value="Tunneling">Tunneling(Fazer)</option>
+              <option value="Ultrahearing;2;0-5">Ultrahearing</option>
+              <option value="Ultrasonic Speech;2;0-10">Ultrasonic Speech</option>
+              <option value="Ultravision;2;0-10">Ultravision</option>
+              <option value="Unaging;1;15">Unaging</option>
+              <option value="Unfazeable;1;15">Unfazeable</option>
+              <option value="Universal Digestion;1;5">Universal Digestion</option>
+              <option value="Unkillable;5;50;150">Unkillable</option>
+              <option value="Unusual Background;4;1">Unusual Background</option>
+              <option value="Vacuum Support;1;5">Vacuum Support</option>
+              <option value="Vampiric Bite">Vampiric Bite(Fazer)</option>
+              <option value="Versatile;1;5">Versatile</option>
+              <option value="Vibration Sense;1;10">Vibration Sense</option>
+              <option value="Visualization;1;10">Visualization</option>
+              <option value="Voice;1;10">Voice</option>
+              <option value="Walk on Air;1;20">Walk on Air</option>
+              <option value="Walk on Liquid;1;15">Walk on Liquid</option>
+              <option value="Warp;1;100">Warp</option>
+              <option value="Weapon Master;4;1">Weapon Master</option>
+              <option value="Wild Talent;3;20;999">Wild Talent</option>
+              <option value="Zeroed;1;10">Zeroed</option>
+            </optgroup>
+            <optgroup label="Perks">
+              <option value="Accessory;1;1">Accessory</option>
+              <option value="Alcohol Tolerance;1;1">Alcohol Tolerance</option>
+              <option value="Autotrance;1;1">Autotrance</option>
+              <option value="Deep Sleeper;1;1">Deep Sleeper</option>
+              <option value="Fur;1;1">Fur</option>
+              <option value="Honest Face;1;1">Honest Face</option>
+              <option value="No Hangover;1;1">No Hangover</option>
+              <option value="Sanitized Metabolism;1;1">Santized Metabolism</option>
+              <option value="Shtick;1;1">Shtick</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" onclick="newAdvRow()">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal das disvantagens -->
+  <div id="disadvModal" class="modal fade">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Disadvantage or Querk</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label for="disadvList" class="col-form-label">Disadvantages List</label>
+          <select id="disadvList" class="form-control col-12">
+            <option value=""></option>
+            <option value="Custom Disvantage;0">Custom Disadvantage</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" onclick="newDisAdvRow()">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal das pericias -->
+  <div id="skillModal" class="modal fade">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Skill</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label for="skillList" class="col-form-label">Skills List</label>
+          <select id="skillList" class="form-control col-12">
+            <option value=""></option>
+            <optgroup label="Customs">
+              <option value="Custom Skill;0">Custom Skill</option>
+            </optgroup>
+            <optgroup label="Skills">
+              <option value="Accounting;1;iq;2">Accounting</option>
+              <option value="Accounting - Finance-4;3;iq;2;Finance;-4" disabled>Accounting - Finance-4</option>
+              <option value="Accounting - Statistic-5;3;iq;2;Statistic;-5" disabled>Accounting - Statistic-5</option>
+              <option value="Accounting - Merchant-5;3;iq;2;Merchant;-5" disabled>Accounting - Merchant-5</option>
+              <option value="Acrobatics;1;dx;2">Acrobatics</option>
+              <option value="Acting;1;iq;1">Acting</option>
+              <option value="Acting - Performace-2;3;iq;1;Performace;-2" disabled>Acting - Performace-2</option>
+              <option value="Acting - Public Speaking-5;3;iq;1;Public Speaking;-5" disabled>Acting - Public Speaking-5</option>
+              <option value="Administration;1;iq;1">Administration</option>
+              <option value="Administration - Merchant;3;iq;1;Merchant;-3" disabled>Administration - Merchant</option>
+              <option value="Aerobatics" disabled>Aerobatics</option>
+              <option value="Airshipman/TL" disabled>Airshipman/TL</option>
+              <option value="Alchemy/TL;2;iq;3">Alchemy/TL</option>
+              <option value="Animal Handling;1;iq;1">Animal Handling</option>
+              <option value="Anthropology;1;iq;2">Anthropology</option>
+              <option value="Aquabatics" disabled>Aquabatics</option>
+              <option value="Archaeology;1;iq;2">Archaeology</option>
+              <option value="Architecture/TL;1;iq;1">Architeture/TL</option>
+              <option value="Architecture/TL - Engineer (Civil)-4;3;1;iq;1;Engineer (Civil);-4">Architecture/TL - Engineer (Civil)-4</option>
+              <option value="Area Knowledge;1;iq;0">Area Knowledge</option>
+              <option value="Area Knowledge - Geography (Regional)-3;3;iq;0;Geography (Regional);-3">Area Knowledge - Geography (Regional)-3</option>
+              <option value="Armoury/TL";1;iq;1>Armoury</option>
+              <option value="Armoury/TL Engineer (same)-4;3;iq;1;Engineer (same);-4">Armoury/TL Engineer (same)-4</option>
+              <option value="Artillery/TL;1;iq;1">Artillery</option>
+              <option value="Artist;1;iq;2">Artist</option>
+              <option value="Astronomy/TL;1;iq;2">Astronomy</option>
+              <option value="Astronomy/TL;4;iq;2;Mathematics (Applied)" disabled>Astronomy/TL</option>
+              <option value="Autohypnosis" disabled>Autohypnosis</option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" onClick="newSkillRow()">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de sugestoes e de reportar um bug -->
+  <div id="bugModal" class="modal fade">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Suggestions and Bug Report</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="col-form-label">Title</p>
+          <input type="text" id="emailTitle" maxlength="30" class="form-control" placeholder="Email title"/>
+          <p class="col-form-label">Message</p>
+          <textarea id="emailBody" maxlength="500" rows="4" class="form-control" placeholder="Email body"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" onclick="sendEmail()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensagem de email enviado -->
+  <div class="container">
+    <div id="emailSent" class="alert alert-success alert-dismissible fade show fixed-bottom" role="alert" style="display: none">
+      <button type="button" class="close" aria-label="Close" onclick="$('#emailSent').fadeOut()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>Your email was sent!</strong> We will review it when possible.
+    </div>
+  </div>
+
+  <!-- Footer da pagina -->
+  <footer class="footer text-muted bg-inverse text-center" style="padding: 3rem 0; width: 100%; position: absolute">
+    <div class="footer-block">
+      <span>Auto Gurps is an unofficial free tool of the GURPS game. Developed by players for players. Enjoy it!</span>
+    </div>
+  </footer>
+</body>
+</html>
