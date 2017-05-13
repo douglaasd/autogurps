@@ -7,7 +7,8 @@ window.onload = function () {
     sheet = newSheet();
     calculateCost();
 }
-
+//
+//
 function newSheet() {
     var s = new Object;
     s = {

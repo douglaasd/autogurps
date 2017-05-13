@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>GURPS</title>
+  <link rel="shortcut icon" href="images/dice.png" />
+  <!-- Meta dados da pagina -->
+  <meta name="keywords" content="GURPS, RPG, planilha, sheet, gurps character sheet">
+  <meta name="author" content="Douglas Zaia Adam">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Links contendo os arquivos css    class="form-group row"-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <!-- Scripts contendo as funcoes para funcionamento da pagina -->
+  <script type="text/javascript" src="includes/procedures.js"></script>
+  <script type="text/javascript" src="includes/jquery-3.2.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- Barra de operacoes na parte superior da pagina -->
+  <header>
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <span class="navbar-brand"><img src="images/dice-2.png" width="30" /> AUTO GURPS <b style="color: gray">Alpha</b></span>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <!--<li class="nav-item active">
+            <a class="nav-link" href="#">Character Sheet</a>
+          </li>-->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              Idioma
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu bg-inverse">
+              <li><a href="index.html" class="nav-link">Inglês</a></li>
+              <li><a href="index-portuguese.html" class="nav-link">Português</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" data-target="#bugModal">Sugestões / Reportar Bug</a>
+          </li>
+        </ul>
+        <label for="cost" class="col-form-label text-white">Custo:&nbsp;</label>
+        <input type="text" id="cost" style="background-color: transparent; border: 0px; color: #fff" disabled />
+      </div>
+    </nav>
+  </header>
+  <br /><br /><br /><br />
+
+  <div class="container">
+    <h2>Ficha do Personagem</h2>
+  </div>
+  <br />
+
+  <!-- Sessao das informacoes -->
+  <div id="infoSection" class="container">
+    <div class="card">
+      <div class="card-header">
+        <h6 for="infoCard">Informações</h6>
+      </div>
+      <div class="card-block">
+        <div class="form-group">
+          <label for="name" class="col-form-label col-1">Nome</label>
+          <input id="name" type="text" placeholder="Nome do Personagem" class="form-control col-12" />
+        </div>
+        <div class="form-group">
+          <label for="player" class="col-form-label col-1">Jogador</label>
+          <input type="text" id="player" placeholder="Nome do Jogador" class="form-control col-12" />
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <label for="sizeMod" class="col-form-label col-3">Mod.</label>
+            <label for="height" class="col-form-label col-3">Alt.</label>
+            <label for="width" class="col-form-label col-3">Lar.</label>
+            <label for="age" class="col-form-label col-3">Idade</label>
+          </div>
+          <div class="input-group">
+            <input type="number" id="sizeMod" class="form-control col-3" placeholder="Tamanho" />
+            <input type="number" id="height" step="0.1" min="0" class="form-control col-3" placeholder="ft." />
+            <input type="number" id="width" step="1" min="40" class="form-control col-3" placeholder="lbs." />
+            <input type="number" id="age" min="0" class="form-control col-3" placeholder="Anos" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="appearance" class="col-form-label col-1">Aparência</label>
+          <textarea id="appearance" class="form-control col-12" rows="3" placeholder="Aparência do Personagem"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  <!-- Sessao dos atributos -->
+  <div id="attrSection" class="container">
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-header">
+          <h6>Atributos</h6>
+        </div>
+        <div class="card-block text-center">
+          <div class="row form-group">
+            <label for="st" class="col-form-label col-2">ST</label>
+            <input type="number" id="st" min="1" value="10" class="form-control col-2"
+                   onChange="setAttrCost('st'); calculateHp(); calculateBl(); calculateThrust(); calculateSwing(); calculateSpeed(); calculateMove(); calculateCost()" />
+            <label id="stCost" for="st" class="col-form-label col-2">[0]</label>
+            <label for="hp" class="col-form-label col-2">HP</label>
+            <input type="number" id="hp" class="form-control col-2" value="10" min="1" onChange="setAttrCost('hp'); calculateCost()" />
+            <label id="hpCost" for="hp" class="col-form-label col-2">[0]</label>
+          </div>
+          <div class="row form-group">
+            <label for="dx" class="col-form-label col-2">DX</label>
+            <input type="number" id="dx" min="1" value="10" onChange="setAttrCost('dx'); calculateCost()" class="form-control col-2" />
+            <label id="dxCost" for="dx" class="col-form-label col-2">[0]</label>
+            <label for="will" class="col-form-label col-2">Will</label>
+            <input type="number" id="will" min="1" max="20" class="form-control col-2" value="10" onchange="setAttrCost('will'); calculateCost()" />
+            <label id="willCost" for="will" class="col-form-label col-2">[0]</label>
+          </div>
+          <div class="row form-group">
+            <label for="iq" class="col-form-label col-2">IQ</label>
+            <input type="number" id="iq" min="1" value="10" class="form-control col-2"
+                   onChange="setAttrCost('iq'); calculateWill(); calculatePer(); calculateCost();" />
+            <label id="iqCost" for="iq" class="col-form-label col-2">[0]</label>
+            <label for="per" class="col-form-label col-2">Per</label>
+            <input type="number" id="per" min="1" max="20" class="form-control col-2" value="10" onchange="setAttrCost('per'); calculateCost()" />
+            <label id="perCost" for="per" class="col-form-label col-2">[0]</label>
+          </div>
+          <div class="row form-group">
+            <label for="ht" class="col-form-label col-2">HT</label>
+            <input type="number" id="ht" min="1" value="10" class="form-control col-2"
+                   onChange="setAttrCost('ht'); calculateFp(); calculateSpeed(); calculateMove(); calculateCost();" />
+            <label id="htCost" for="ht" class="col-form-label col-2">[0]</label>
+            <label for="fp" class="col-form-label col-2">FP</label>
+            <input type="number" id="fp" min="1" class="form-control col-2" value="10" onchange="setAttrCost('fp'); calculateCost()" />
+            <label id="fpCost" for="fp" class="col-form-label col-2">[0]</label>
+          </div>
+        </div>
+      </div>
+      <!-- Sessao dos status dos atributos -->
+      <div class="card">
+        <div class="card-header">
+          <h6>Status dos Atributos</h6>
+        </div>
+        <div class="card-block text-center">
+          <section class="card-text">
+            <div class="row form-group">
+              <p id="bl" class="col-form-label col-4">Basic lift: 20</p>
+              <p id="thr" class="col-form-label col-4">Thr: 1d -2</p>
+              <p id="sw" class="col-form-label col-4">Sw: 1d</p>
+            </div>
+            <div class="row form-group text-center">
+              <label for="move" class="col-form-label col-2">Move</label>
+              <input type="number" id="move" min="1" class="form-control col-2" value="5" onchange="setAttrCost('move'); calculateCost()" />
+              <label for="move" id="moveCost" class="col-form-label col-2">[0]</label>
+              <label for="speed" class="col-form-label col-2">Speed</label>
+              <input type="number" id="speed" min="1" step="0.25" class="form-control col-2" value="5" onchange="setAttrCost('speed'); calculateCost()" />
+              <label for="speed" id="speedCost" class="col-form-label col-2">[0]</label>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="container">
+    <div class="card-deck">
+
+      <!--Sessao das vantagens -->
+      <div id="advCard" class="card">
+        <div class="card-header">
+          <h6>Vantagens e Regalias</h6>
+        </div>
+        <div class="card-block text-center">
+          <table id="advTable" class="table table-striped" width="100">
+            <thead>
+              <tr>
+                <th style="width: 50%">Nome</th>
+                <th class="text-center" style="width: 20%">Nível</th>
+                <th class="text-center" style="width: 20%">Custo</th>
+                <th style="width: 10%">
+                  <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#advModal">Add</button>
+                </th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sessao das desvantagens-->
+      <div id="disadvCard" class="card">
+        <div class="card-header">
+          <h6>Desvantagens e Peculiaridades</h6>
+        </div>
+        <div class="card-block text-center">
+          <table id="disadvTable" class="table table-striped">
+            <thead>
+              <tr>
+                <th style="width: 50%">Nome</th>
+                <th class="text-center" style="width: 20%">Nível</th>
+                <th class="text-center" style="width: 20%">Custo</th>
+                <th style="width: 10%">
+                  <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#disadvModal">Add</button>
+                </th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  <!-- Sessao das habilidades -->
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h6>Habilidades</h6>
+      </div>
+      <div class="card-block text-center">
+        <table id="skillTable" class="table table-striped">
+          <thead>
+            <tr>
+              <th style="width: 50%">Nome</th>
+              <th class="text-center" style="width: 20%">Nível</th>
+              <th class="text-center" style="width: 20%">Custo</th>
+              <th style="width: 10%">
+                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#skillModal">Add</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br />
+  <!-- Sessao de modais -->
+  <!-- Modal das vantagens -->
+  <div id="advModal" class="modal fade">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Vantagens e Regalias</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label for="advList" class="col-form-label">Lista de Vantagens</label>
+          <select id="advList" class="form-control col-12">
+            <option value=""></option>
+            <option value="Custom Advantage;0">Vantagem Customizada</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" onclick="newAdvRow()">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal das disvantagens -->
+  <div id="disadvModal" class="modal fade">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Desvantagens e Peculiaridades</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label for="disadvList" class="col-form-label">Lista de Desvantagens</label>
+          <select id="disadvList" class="form-control col-12">
+            <option value=""></option>
+            <option value="Custom Disvantage;0">Desvantagem Customizada</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" onclick="newDisAdvRow()">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal das pericias -->
+  <div id="skillModal" class="modal fade">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Habilidades</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label for="skillList" class="col-form-label">Lista de Habilidades</label>
+          <select id="skillList" class="form-control col-12">
+            <option value=""></option>
+            <option value="Custom Skill;0">Habilidade Customizada</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" onClick="newSkillRow()">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de sugestoes e de reportar um bug -->
+  <div id="bugModal" class="modal fade">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Sugestões e Reportar Bug</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="col-form-label">Título</p>
+          <input type="text" id="emailTitle" maxlength="30" class="form-control" placeholder="Título do email" />
+          <p class="col-form-label">Mensagem</p>
+          <textarea id="emailBody" maxlength="500" rows="4" class="form-control" placeholder="Corpo do email"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" onclick="sendEmail()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensagem de email enviado -->
+  <div class="container">
+    <div id="emailSent" class="alert alert-success alert-dismissible fade show fixed-bottom" role="alert" style="display: none">
+      <button type="button" class="close" aria-label="Close" onclick="$('#emailSent').fadeOut()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>Sua mensagem foi enviada com sucesso!</strong> Nós analisaremos ela quando possível.
+    </div>
+  </div>
+
+  <!-- Footer da pagina -->
+  <footer class="footer text-muted bg-inverse text-center" style="padding: 3rem 0; width: 100%; position: absolute">
+    <div class="footer-block">
+      <span>Auto Gurps é uma ferramenta gratuita não oficial do jogo GURPS. Desenvolvida por jogadores para jogadores. Divirta-se!</span>
+    </div>
+  </footer>
+</body>
+</html>
