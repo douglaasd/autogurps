@@ -10,7 +10,8 @@
   <!-- Links contendo os arquivos css    class="form-group row"-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <!-- Scripts contendo as funcoes para funcionamento da pagina -->
-  <script type="text/javascript" src="includes/procedures.js"></script>
+  <script type="text/javascript" src="includes/sheet.js"></script>
+  <script type="text/javascript" src="includes/advantage.js"></script>
   <script type="text/javascript" src="includes/jquery-3.2.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
@@ -31,19 +32,19 @@
           </li>-->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              Idioma
+              Language
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu bg-inverse">
-              <li><a href="index.html" class="nav-link">Inglês</a></li>
-              <li><a href="index-portuguese.html" class="nav-link">Português</a></li>
+              <li><a href="index.html" class="nav-link">English</a></li>
+              <li><a href="index-portuguese.html" class="nav-link">Portuguese</a></li>
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="modal" data-target="#bugModal">Sugestões / Reportar Bug</a>
+            <a class="nav-link" data-toggle="modal" data-target="#bugModal">Suggestions / Bug report</a>
           </li>
         </ul>
-        <label for="cost" class="col-form-label text-white">Custo:&nbsp;</label>
+        <label for="cost" class="col-form-label text-white">Cost:&nbsp;</label>
         <input type="text" id="cost" style="background-color: transparent; border: 0px; color: #fff" disabled />
       </div>
     </nav>
@@ -51,7 +52,7 @@
   <br /><br /><br /><br />
 
   <div class="container">
-    <h2>Ficha do Personagem</h2>
+    <h2>PÃ¡gina Em Desenvolvimento</h2>
   </div>
   <br />
 
@@ -59,34 +60,34 @@
   <div id="infoSection" class="container">
     <div class="card">
       <div class="card-header">
-        <h6 for="infoCard">Informações</h6>
+        <h6 for="infoCard">Informations</h6>
       </div>
       <div class="card-block">
         <div class="form-group">
-          <label for="name" class="col-form-label col-1">Nome</label>
-          <input id="name" type="text" placeholder="Nome do Personagem" class="form-control col-12" />
+          <label for="name" class="col-form-label col-1">Name</label>
+          <input id="name" type="text" placeholder="Character Name" class="form-control col-12" />
         </div>
         <div class="form-group">
-          <label for="player" class="col-form-label col-1">Jogador</label>
-          <input type="text" id="player" placeholder="Nome do Jogador" class="form-control col-12" />
+          <label for="player" class="col-form-label col-1">Player</label>
+          <input type="text" id="player" placeholder="Player Name" class="form-control col-12" />
         </div>
         <div class="form-group">
           <div class="input-group">
-            <label for="sizeMod" class="col-form-label col-3">Mod.</label>
-            <label for="height" class="col-form-label col-3">Alt.</label>
-            <label for="width" class="col-form-label col-3">Lar.</label>
-            <label for="age" class="col-form-label col-3">Idade</label>
+            <label for="sizeMod" class="col-form-label col-3">Mod</label>
+            <label for="height" class="col-form-label col-3">Ht</label>
+            <label for="width" class="col-form-label col-3">Wt</label>
+            <label for="age" class="col-form-label col-3">Age</label>
           </div>
           <div class="input-group">
-            <input type="number" id="sizeMod" class="form-control col-3" placeholder="Tamanho" />
+            <input type="number" id="sizeMod" class="form-control col-3" placeholder="Size" />
             <input type="number" id="height" step="0.1" min="0" class="form-control col-3" placeholder="ft." />
             <input type="number" id="width" step="1" min="40" class="form-control col-3" placeholder="lbs." />
-            <input type="number" id="age" min="0" class="form-control col-3" placeholder="Anos" />
+            <input type="number" id="age" min="0" class="form-control col-3" placeholder="Years" />
           </div>
         </div>
         <div class="form-group">
-          <label for="appearance" class="col-form-label col-1">Aparência</label>
-          <textarea id="appearance" class="form-control col-12" rows="3" placeholder="Aparência do Personagem"></textarea>
+          <label for="appearance" class="col-form-label col-1">Appearance</label>
+          <textarea id="appearance" class="form-control col-12" rows="3" placeholder="Character Appearance"></textarea>
         </div>
       </div>
     </div>
@@ -98,42 +99,39 @@
     <div class="card-deck">
       <div class="card">
         <div class="card-header">
-          <h6>Atributos</h6>
+          <h6>Attributes</h6>
         </div>
         <div class="card-block text-center">
           <div class="row form-group">
             <label for="st" class="col-form-label col-2">ST</label>
-            <input type="number" id="st" min="1" value="10" class="form-control col-2"
-                   onChange="setAttrCost('st'); calculateHp(); calculateBl(); calculateThrust(); calculateSwing(); calculateSpeed(); calculateMove(); calculateCost()" />
+            <input type="number" id="st" min="1" value="10" class="form-control col-2" />
             <label id="stCost" for="st" class="col-form-label col-2">[0]</label>
             <label for="hp" class="col-form-label col-2">HP</label>
-            <input type="number" id="hp" class="form-control col-2" value="10" min="1" onChange="setAttrCost('hp'); calculateCost()" />
+            <input type="number" id="hp" class="form-control col-2" value="10" min="1" />
             <label id="hpCost" for="hp" class="col-form-label col-2">[0]</label>
           </div>
           <div class="row form-group">
             <label for="dx" class="col-form-label col-2">DX</label>
-            <input type="number" id="dx" min="1" value="10" onChange="setAttrCost('dx'); calculateCost()" class="form-control col-2" />
+            <input type="number" id="dx" min="1" value="10" class="form-control col-2" />
             <label id="dxCost" for="dx" class="col-form-label col-2">[0]</label>
             <label for="will" class="col-form-label col-2">Will</label>
-            <input type="number" id="will" min="1" max="20" class="form-control col-2" value="10" onchange="setAttrCost('will'); calculateCost()" />
+            <input type="number" id="will" min="1" max="20" class="form-control col-2" value="10" />
             <label id="willCost" for="will" class="col-form-label col-2">[0]</label>
           </div>
           <div class="row form-group">
             <label for="iq" class="col-form-label col-2">IQ</label>
-            <input type="number" id="iq" min="1" value="10" class="form-control col-2"
-                   onChange="setAttrCost('iq'); calculateWill(); calculatePer(); calculateCost();" />
+            <input type="number" id="iq" min="1" value="10" class="form-control col-2" />
             <label id="iqCost" for="iq" class="col-form-label col-2">[0]</label>
             <label for="per" class="col-form-label col-2">Per</label>
-            <input type="number" id="per" min="1" max="20" class="form-control col-2" value="10" onchange="setAttrCost('per'); calculateCost()" />
+            <input type="number" id="per" min="1" max="20" class="form-control col-2" value="10" />
             <label id="perCost" for="per" class="col-form-label col-2">[0]</label>
           </div>
           <div class="row form-group">
             <label for="ht" class="col-form-label col-2">HT</label>
-            <input type="number" id="ht" min="1" value="10" class="form-control col-2"
-                   onChange="setAttrCost('ht'); calculateFp(); calculateSpeed(); calculateMove(); calculateCost();" />
+            <input type="number" id="ht" min="1" value="10" class="form-control col-2" />
             <label id="htCost" for="ht" class="col-form-label col-2">[0]</label>
             <label for="fp" class="col-form-label col-2">FP</label>
-            <input type="number" id="fp" min="1" class="form-control col-2" value="10" onchange="setAttrCost('fp'); calculateCost()" />
+            <input type="number" id="fp" min="1" class="form-control col-2" value="10" />
             <label id="fpCost" for="fp" class="col-form-label col-2">[0]</label>
           </div>
         </div>
@@ -141,7 +139,7 @@
       <!-- Sessao dos status dos atributos -->
       <div class="card">
         <div class="card-header">
-          <h6>Status dos Atributos</h6>
+          <h6>Attributes Status</h6>
         </div>
         <div class="card-block text-center">
           <section class="card-text">
@@ -152,10 +150,10 @@
             </div>
             <div class="row form-group text-center">
               <label for="move" class="col-form-label col-2">Move</label>
-              <input type="number" id="move" min="1" class="form-control col-2" value="5" onchange="setAttrCost('move'); calculateCost()" />
+              <input type="number" id="move" min="1" class="form-control col-2" value="5" />
               <label for="move" id="moveCost" class="col-form-label col-2">[0]</label>
               <label for="speed" class="col-form-label col-2">Speed</label>
-              <input type="number" id="speed" min="1" step="0.25" class="form-control col-2" value="5" onchange="setAttrCost('speed'); calculateCost()" />
+              <input type="number" id="speed" min="1" step="0.25" class="form-control col-2" value="5" />
               <label for="speed" id="speedCost" class="col-form-label col-2">[0]</label>
             </div>
           </section>
@@ -164,51 +162,52 @@
     </div>
   </div>
   <br />
+
+  <!--Sessao das vantagens -->
   <div class="container">
-    <div class="card-deck">
-
-      <!--Sessao das vantagens -->
-      <div id="advCard" class="card">
-        <div class="card-header">
-          <h6>Vantagens e Regalias</h6>
-        </div>
-        <div class="card-block text-center">
-          <table id="advTable" class="table table-striped" width="100">
-            <thead>
-              <tr>
-                <th style="width: 50%">Nome</th>
-                <th class="text-center" style="width: 20%">Nível</th>
-                <th class="text-center" style="width: 20%">Custo</th>
-                <th style="width: 10%">
-                  <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#advModal">Add</button>
-                </th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
+    <div id="advCard" class="card">
+      <div class="card-header">
+        <h6>Advantages & Perks</h6>
       </div>
+      <div class="card-block text-center table-responsive ">
+        <table id="advTable" class="table table-sm table-striped">
+          <thead>
+            <tr>
+              <th style="width: 50%">Name</th>
+              <th class="text-center" style="width: 20%">Lvl/Qt</th>
+              <th class="text-center" style="width: 20%">Cost</th>
+              <th class="text-center" style="width: 10%">
+                <button type="button" class="btn btn-sm btn-success glyphicon glyphicon-plus" data-toggle="modal" data-target="#advModal">Add</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br />
 
-      <!-- Sessao das desvantagens-->
-      <div id="disadvCard" class="card">
-        <div class="card-header">
-          <h6>Desvantagens e Peculiaridades</h6>
-        </div>
-        <div class="card-block text-center">
-          <table id="disadvTable" class="table table-striped">
-            <thead>
-              <tr>
-                <th style="width: 50%">Nome</th>
-                <th class="text-center" style="width: 20%">Nível</th>
-                <th class="text-center" style="width: 20%">Custo</th>
-                <th style="width: 10%">
-                  <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#disadvModal">Add</button>
-                </th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
+  <!-- Sessao das desvantagens-->
+  <div class="container">
+    <div id="disadvCard" class="card">
+      <div class="card-header">
+        <h6>Disadvantages & Quirks</h6>
+      </div>
+      <div class="card-block text-center table-responsive ">
+        <table id="disadvTable" class="table table-sm table-striped">
+          <thead>
+            <tr>
+              <th style="width: 50%">Name</th>
+              <th class="text-center" style="width: 20%">Lvl/Qt</th>
+              <th class="text-center" style="width: 20%">Cost</th>
+              <th class="text-center" style="width: 10%">
+                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#disadvModal">Add</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -216,18 +215,18 @@
 
   <!-- Sessao das habilidades -->
   <div class="container">
-    <div class="card">
+    <div id="skillCard" class="card">
       <div class="card-header">
-        <h6>Habilidades</h6>
+        <h6>Skills</h6>
       </div>
-      <div class="card-block text-center">
+      <div class="card-block text-center table-sm table-responsive ">
         <table id="skillTable" class="table table-striped">
           <thead>
             <tr>
-              <th style="width: 50%">Nome</th>
-              <th class="text-center" style="width: 20%">Nível</th>
-              <th class="text-center" style="width: 20%">Custo</th>
-              <th style="width: 10%">
+              <th style="width: 50%">Name</th>
+              <th class="text-center" style="width: 20%">Lvl</th>
+              <th class="text-center" style="width: 20%">Cost</th>
+              <th class="text-center" style="width: 10%">
                 <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#skillModal">Add</button>
               </th>
             </tr>
@@ -239,25 +238,25 @@
   </div>
   <br />
   <!-- Sessao de modais -->
+
   <!-- Modal das vantagens -->
   <div id="advModal" class="modal fade">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Vantagens e Regalias</h5>
+          <h5 class="modal-title">Advantages & Perks</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <label for="advList" class="col-form-label">Lista de Vantagens</label>
+          <label for="advList" class="col-form-label">Advantages & Perks List</label>
           <select id="advList" class="form-control col-12">
-            <option value=""></option>
-            <option value="Custom Advantage;0">Vantagem Customizada</option>
+          <!-- Sera importado via js -->
           </select>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-dismiss="modal" onclick="newAdvRow()">Confirm</button>
+          <button type="button" id="advButton" class="btn btn-success" data-dismiss="modal">Confirm</button>
         </div>
       </div>
     </div>
@@ -268,20 +267,20 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Desvantagens e Peculiaridades</h5>
+          <h5 class="modal-title">Disadvantage or Querk</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <label for="disadvList" class="col-form-label">Lista de Desvantagens</label>
+          <label for="disadvList" class="col-form-label">Disadvantages List</label>
           <select id="disadvList" class="form-control col-12">
             <option value=""></option>
-            <option value="Custom Disvantage;0">Desvantagem Customizada</option>
+            <option value="Custom Disvantage;0">Custom Disadvantage</option>
           </select>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-dismiss="modal" onclick="newDisAdvRow()">Confirm</button>
+          <button type="button" id="disadvButton" class="btn btn-success" data-dismiss="modal">Confirm</button>
         </div>
       </div>
     </div>
@@ -292,20 +291,84 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Habilidades</h5>
+          <h5 class="modal-title">Skill</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <label for="skillList" class="col-form-label">Lista de Habilidades</label>
+          <label for="skillList" class="col-form-label">Skills List</label>
           <select id="skillList" class="form-control col-12">
             <option value=""></option>
-            <option value="Custom Skill;0">Habilidade Customizada</option>
+            <optgroup label="Customs">
+              <option value="Custom Skill;0">Custom Skill</option>
+            </optgroup>
+            <optgroup label="Skills">
+              <option value="Accounting;1;iq;2">Accounting</option>
+              <option value="Accounting - Finance-4;3;iq;2;Finance;-4" disabled>Accounting - Finance-4</option>
+              <option value="Accounting - Statistic-5;3;iq;2;Statistic;-5" disabled>Accounting - Statistic-5</option>
+              <option value="Accounting - Merchant-5;3;iq;2;Merchant;-5" disabled>Accounting - Merchant-5</option>
+              <option value="Acrobatics;1;dx;2">Acrobatics</option>
+              <option value="Acting;1;iq;1">Acting</option>
+              <option value="Acting - Performace-2;3;iq;1;Performace;-2" disabled>Acting - Performace-2</option>
+              <option value="Acting - Public Speaking-5;3;iq;1;Public Speaking;-5" disabled>Acting - Public Speaking-5</option>
+              <option value="Administration;1;iq;1">Administration</option>
+              <option value="Administration - Merchant;3;iq;1;Merchant;-3" disabled>Administration - Merchant</option>
+              <option value="Aerobatics" disabled>Aerobatics</option>
+              <option value="Airshipman/TL" disabled>Airshipman/TL</option>
+              <option value="Alchemy/TL;2;iq;3">Alchemy/TL</option>
+              <option value="Animal Handling;1;iq;1">Animal Handling</option>
+              <option value="Anthropology;1;iq;2">Anthropology</option>
+              <option value="Aquabatics" disabled>Aquabatics</option>
+              <option value="Archaeology;1;iq;2">Archaeology</option>
+              <option value="Architecture/TL;1;iq;1">Architeture/TL</option>
+              <option value="Architecture/TL - Engineer (Civil)-4;3;1;iq;1;Engineer (Civil);-4">Architecture/TL - Engineer (Civil)-4</option>
+              <option value="Area Knowledge;1;iq;0">Area Knowledge</option>
+              <option value="Area Knowledge - Geography (Regional)-3;3;iq;0;Geography (Regional);-3">Area Knowledge - Geography (Regional)-3</option>
+              <option value="Armoury/TL";1;iq;1>Armoury</option>
+              <option value="Armoury/TL Engineer (same)-4;3;iq;1;Engineer (same);-4">Armoury/TL Engineer (same)-4</option>
+              <option value="Artillery/TL;1;iq;1">Artillery</option>
+              <option value="Artist;1;iq;2">Artist</option>
+              <option value="Astronomy/TL;1;iq;2">Astronomy</option>
+              <option value="Astronomy/TL;4;iq;2;Mathematics (Applied)" disabled>Astronomy/TL</option>
+              <option value="Autohypnosis" disabled>Autohypnosis</option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+            </optgroup>
           </select>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-dismiss="modal" onClick="newSkillRow()">Confirm</button>
+          <button type="button" id="skillButton" class="btn btn-success" data-dismiss="modal">Confirm</button>
         </div>
       </div>
     </div>
@@ -316,16 +379,16 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Sugestões e Reportar Bug</h5>
+          <h5 class="modal-title">Suggestions and Bug Report</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p class="col-form-label">Título</p>
-          <input type="text" id="emailTitle" maxlength="30" class="form-control" placeholder="Título do email" />
-          <p class="col-form-label">Mensagem</p>
-          <textarea id="emailBody" maxlength="500" rows="4" class="form-control" placeholder="Corpo do email"></textarea>
+          <p class="col-form-label">Title</p>
+          <input type="text" id="emailTitle" maxlength="30" class="form-control" placeholder="Email title"/>
+          <p class="col-form-label">Message</p>
+          <textarea id="emailBody" maxlength="500" rows="4" class="form-control" placeholder="Email body"></textarea>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-success" data-dismiss="modal" onclick="sendEmail()">Send</button>
@@ -340,14 +403,14 @@
       <button type="button" class="close" aria-label="Close" onclick="$('#emailSent').fadeOut()">
         <span aria-hidden="true">&times;</span>
       </button>
-      <strong>Sua mensagem foi enviada com sucesso!</strong> Nós analisaremos ela quando possível.
+      <strong>Your email was sent!</strong> We will review it when possible.
     </div>
   </div>
 
   <!-- Footer da pagina -->
   <footer class="footer text-muted bg-inverse text-center" style="padding: 3rem 0; width: 100%; position: absolute">
     <div class="footer-block">
-      <span>Auto Gurps é uma ferramenta gratuita não oficial do jogo GURPS. Desenvolvida por jogadores para jogadores. Divirta-se!</span>
+      <span>Auto Gurps is an unofficial free tool of the GURPS game. Developed by players for players. Enjoy it!</span>
     </div>
   </footer>
 </body>
